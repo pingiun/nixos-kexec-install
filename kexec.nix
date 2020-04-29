@@ -27,7 +27,7 @@
         if [ -e /root/.ssh/authorized_keys ]; then
           cat /root/.ssh/authorized_keys >> authorized_keys
         fi
-        if [ -e /install_script -a  ]; then
+        if [ -e /install_script ]; then
           cp /install_script install_script
         else
           echo "No install script found at /install_script, proceding without installation"

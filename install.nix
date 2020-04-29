@@ -36,7 +36,7 @@ in {
 
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = pkgs.writeScriptBin "install" ''
+        ExecStart = pkgs.writeScript "install" ''
           #!${pkgs.stdenv.shell}
 
           set -e
