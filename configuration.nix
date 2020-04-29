@@ -8,7 +8,9 @@ with lib;
     <nixpkgs/nixos/modules/profiles/all-hardware.nix>
     <nixpkgs/nixos/modules/profiles/base.nix>
     <nixpkgs/nixos/modules/profiles/minimal.nix>
-    ./autoreboot.nix ./kexec.nix ./install.nix ];
+    ./kexec.nix
+    ./install.nix
+  ];
 
   system.build.squashfsStore = pkgs.callPackage <nixpkgs/nixos/lib/make-squashfs.nix> {
     storeContents = config.netboot.storeContents;

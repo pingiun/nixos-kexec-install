@@ -44,8 +44,8 @@ in {
           wipefs -a ${cfg.rootDevice}
 
           parted ${cfg.rootDevice} -- mklabel msdos
-          parted ${cfg.rootDevice} -- mkpart primary 1MiB ${cfg.bootSize}
-          parted ${cfg.rootDevice} -- mkpart primary ${cfg.bootSize} 100%
+          parted ${cfg.rootDevice} -- mkpart primary 1MiB ${toString cfg.bootSize}MiB
+          parted ${cfg.rootDevice} -- mkpart primary ${toString cfg.bootSize}MiB 100%
 
           mkfs.ext4 ${cfg.rootDevice}
 
@@ -55,7 +55,7 @@ in {
           zfs create -o mountpoint=legacy ${cfg.poolName}/safe/persist
 
           # From: https://github.com/zfsonlinux/pkg-zfs/wiki/HOWTO-use-a-zvol-as-a-swap-device
-          zfs create -V ${cfg.swapSize}M -b $(getconf PAGESIZE) -o compression=zle \
+          zfs create -V ${toString cfg.swapSize}M -b $(getconf PAGESIZE) -o compression=zle \
           -o logbias=throughput -o sync=always \
           -o primarycache=metadata -o secondarycache=none \
           -o com.sun:auto-snapshot=false rpool/swap
