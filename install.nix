@@ -39,6 +39,8 @@ in {
         ExecStart = pkgs.writeScript "install" ''
           #!${pkgs.stdenv.shell}
 
+          export PATH=${with pkgs; mkBinPath [ utillinux zfs parted e2fsprogs config.system.build.nixos-install config.system.build.nixos-generate-config ]}:$PATH
+
           set -e
 
           wipefs -a ${cfg.rootDevice}
