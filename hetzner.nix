@@ -3,6 +3,6 @@
 with lib;
 
 {
-	imports = [ ./configuration.nix ];
-	kexec.install.enable = true;
+  imports = [ ./generic-tiny.nix ];
+  kexec.install.enable = true;
 }

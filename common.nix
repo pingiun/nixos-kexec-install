@@ -12,27 +12,6 @@ with lib;
     ./install.nix
   ];
 
-  system.build.squashfsStore = pkgs.callPackage <nixpkgs/nixos/lib/make-squashfs.nix> {
-    storeContents = config.netboot.storeContents;
-    comp = "xz";
-  };
-
-  users.users.nixos = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "video" ];
-    # Allow the graphical user to login without password
-    initialHashedPassword = "";
-  };
-  users.users.root.initialHashedPassword = "";
-  services.mingetty.autologinUser = "nixos";
-
-  hardware.enableRedistributableFirmware = mkForce false;
-
-  security.sudo = {
-    enable = mkDefault true;
-    wheelNeedsPassword = mkForce false;
-  };
-
   boot.supportedFilesystems = [ "zfs" ];
   boot.loader.grub.enable = false;
   boot.kernelParams = [
