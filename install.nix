@@ -97,7 +97,7 @@ in {
           EOF
 
           nix-channel --update
-          nixos-install --no-root-passwd
+          nixos-install -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos --no-root-passwd
 
           reboot
         '';
