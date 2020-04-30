@@ -45,9 +45,9 @@ in {
 
           wipefs -a ${cfg.rootDevice}
 
-          parted ${cfg.rootDevice} -- mklabel msdos
-          parted ${cfg.rootDevice} -- mkpart primary 1MiB ${toString cfg.bootSize}MiB
-          parted ${cfg.rootDevice} -- mkpart primary ${toString cfg.bootSize}MiB 100%
+          parted -s ${cfg.rootDevice} -- mklabel msdos
+          parted -s ${cfg.rootDevice} -- mkpart primary 1MiB ${toString cfg.bootSize}MiB
+          parted -s ${cfg.rootDevice} -- mkpart primary ${toString cfg.bootSize}MiB 100%
 
           mkfs.ext4 ${cfg.rootDevice}
 
