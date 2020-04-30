@@ -51,12 +51,12 @@ in {
 
           mkfs.ext4 ${cfg.rootDevice}1
 
+          zpool create ${cfg.poolName} ${cfg.rootDevice}2
           # From: https://github.com/zfsonlinux/pkg-zfs/wiki/HOWTO-use-a-zvol-as-a-swap-device
           zfs create -V ${toString cfg.swapSize}M -b $(getconf PAGESIZE) -o compression=zle \
           -o logbias=throughput -o sync=always \
           -o primarycache=metadata -o secondarycache=none \
           -o com.sun:auto-snapshot=false rpool/swap
-          zpool create ${cfg.poolName} ${cfg.rootDevice}2
           zfs create -p -o mountpoint=legacy -o xattr=sa -o acltype=posixacl ${cfg.poolName}/local/root
           zfs create -p -o mountpoint=legacy ${cfg.poolName}/local/nix
           zfs create -p -o mountpoint=legacy ${cfg.poolName}/safe/persist
@@ -76,7 +76,7 @@ in {
 
           hostId=$(echo $(head -c4 /dev/urandom | od -A none -t x4))
 
-          cat > /mnt/etc/nixos/generated.nix <<EOF
+          cat > /mnt/etc/nixos/configuration.nix <<EOF
           { ... }:
           {
             imports = [
