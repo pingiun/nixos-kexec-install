@@ -39,7 +39,7 @@ in {
         ExecStart = pkgs.writeScript "install" ''
           #!${pkgs.stdenv.shell}
 
-          export PATH=${with pkgs; makeBinPath [ utillinux zfs parted e2fsprogs config.system.build.nixos-install config.system.build.nixos-generate-config ]}:$PATH
+          export PATH=${with pkgs; makeBinPath [ glibc utillinux zfs parted e2fsprogs config.system.build.nixos-install config.system.build.nixos-generate-config ]}:$PATH
 
           set -e
 
