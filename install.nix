@@ -39,7 +39,7 @@ in {
         ExecStart = pkgs.writeScript "install" ''
           #!${pkgs.stdenv.shell}
 
-          export PATH=${with pkgs; makeBinPath [ glibc utillinux zfs parted e2fsprogs config.system.build.nixos-install config.system.build.nixos-generate-config ]}:$PATH
+          export PATH=${with pkgs; makeBinPath [ systemd nix glibc utillinux zfs parted e2fsprogs config.system.build.nixos-install config.system.build.nixos-generate-config ]}:$PATH
 
           set -e
 
@@ -90,7 +90,7 @@ in {
             networking.useDHCP = true;
 
             services.openssh.enable = true;
-            users.users.root.openssh.autorizedKeys.keyFiles = [ /root/.ssh/authorized_keys ];
+            users.users.root.openssh.authorizedKeys.keyFiles = [ /root/.ssh/authorized_keys ];
 
             system.stateVersion = "20.03";
           }
@@ -99,8 +99,6 @@ in {
           nix-channel --update
           nixos-install --no-root-passwd
 
-          zpool export ${cfg.poolName}
-          swapoff $SWAP_DEVICE
           reboot
         '';
       };
