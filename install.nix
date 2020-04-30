@@ -49,7 +49,7 @@ in {
           parted -s ${cfg.rootDevice} -- mkpart primary 1MiB ${toString cfg.bootSize}MiB
           parted -s ${cfg.rootDevice} -- mkpart primary ${toString cfg.bootSize}MiB 100%
 
-          mkfs.ext4 ${cfg.rootDevice}
+          mkfs.ext4 ${cfg.rootDevice}1
 
           zpool create ${cfg.poolName} ${cfg.rootDevice}2
           zfs create -o mountpoint=legacy -o xattr=sa -o acltype=posixacl ${cfg.poolName}/local/root
