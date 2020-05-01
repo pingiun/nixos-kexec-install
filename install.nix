@@ -39,7 +39,7 @@ in {
         ExecStart = pkgs.writeScript "install" ''
           #!${pkgs.stdenv.shell}
 
-          export PATH=${with pkgs; makeBinPath [ systemd nix glibc utillinux zfs parted e2fsprogs config.system.build.nixos-install config.system.build.nixos-generate-config ]}:$PATH
+          export PATH=${with pkgs; makeBinPath [ systemd nix glibc utillinux zfs parted e2fsprogs config.system.build.nixos-install config.system.build.nixos-generate-config config.system.build.nixos-enter ]}:$PATH
 
           set -e
 
@@ -97,7 +97,8 @@ in {
           EOF
 
           nix-channel --update
-          nixos-install -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos --no-root-passwd
+          nixos-install -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos --no-root-passwd || true
+          NIXOS_INSTALL_BOOTLOADER=1 nixos-enter --root /mnt -- /run/current-system/bin/switch-to-configuration boot
 
           reboot
         '';

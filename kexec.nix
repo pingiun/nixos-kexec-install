@@ -24,9 +24,6 @@
         if [ -e ~/.ssh/authorized_keys ]; then
           cat ~/.ssh/authorized_keys >> authorized_keys
         fi
-        if [ -e /root/.ssh/authorized_keys ]; then
-          cat /root/.ssh/authorized_keys >> authorized_keys
-        fi
         if [ -e /install_script ]; then
           cp /install_script install_script
         else
