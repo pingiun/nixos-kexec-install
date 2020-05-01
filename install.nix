@@ -98,7 +98,7 @@ in {
 
           nix-channel --update
           nixos-install -I nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos --no-root-passwd || true
-          NIXOS_INSTALL_BOOTLOADER=1 nixos-enter --root /mnt -- /run/current-system/bin/switch-to-configuration boot
+          NIXOS_INSTALL_BOOTLOADER=1 nixos-enter --root /mnt -- switch-to-configuration boot
 
           reboot
         '';

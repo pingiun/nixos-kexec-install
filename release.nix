@@ -1,7 +1,7 @@
 let
   jobs = rec {
 
-    hetzner =
+    hetzner-install =
       let nixos = import <nixpkgs/nixos> { configuration = ./hetzner.nix; };
       in
         nixos.config.system.build.kexec_tarball;
